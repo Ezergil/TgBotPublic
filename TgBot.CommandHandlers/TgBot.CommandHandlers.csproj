@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TelegramBot.Infrastructure\TelegramBot.Infrastructure.csproj" />
+    <ProjectReference Include="..\TgBot.MessageHandlers\TgBot.MessageHandlers.csproj" />
+    <ProjectReference Include="..\TgBot.Services\TgBot.Services.csproj" />
+  </ItemGroup>
+
+</Project>

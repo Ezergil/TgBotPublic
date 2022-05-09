@@ -1,0 +1,27 @@
+version: 2.1
+
+orbs:
+  win: circleci/windows@2.2.0
+  jira: circleci/jira@1.1.6
+
+jobs:
+  install-jira:
+    docker:
+      - image: 'circleci/node:10'
+    steps:
+      - run: echo "hello"
+  build:
+    docker:
+      - image: 'mcr.microsoft.com/dotnet/core/sdk:3.1'
+
+    steps:
+      - checkout
+      - run: dotnet build
+
+workflows:
+  build:
+    jobs:
+      - build
+      - install-jira:
+          post-steps:
+            - jira/notify

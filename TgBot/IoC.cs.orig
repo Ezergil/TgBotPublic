@@ -1,0 +1,50 @@
+﻿using Autofac;
+using System.Reflection;
+using TgBot.Base.Interfaces;
+using TgBot.CommandHandlers;
+using TgBot.DB;
+using TgBot.Jobs;
+using TgBot.MessageHandlers;
+using TgBot.Services;
+using Microsoft.Extensions.Configuration;
+using Telegram.Bot;
+using TelegramBot.Infrastructure;
+using TelegramBot.Infrastructure.Database;
+using TelegramBot.Infrastructure.Extensions.DependencyInjection;
+using TelegramBot.Infrastructure.Helpers;
+
+namespace InviterBot
+{
+    public static class IoC
+    {
+        public static void Configure(ContainerBuilder builder)
+        {
+            builder.RegisterType<Receiver>().AsSelf().SingleInstance();
+            
+            builder.RegisterType<TelegramBotClientContext>().SingleInstance();
+            builder.Register(c => c.Resolve<TelegramBotClientContext>().Current).As<ITelegramBotClient>()
+                .SingleInstance();
+            
+            builder.RegisterType<DeleteMessageService>().AsSelf().SingleInstance();
+            builder.RegisterType<DeletePolicyService>().AsSelf().SingleInstance();
+            builder.Register(c => new PostgreBotContext(c.Resolve<IConfiguration>()["PostgreConnectionString"]))
+                .As<BotContext>();
+            builder.RegisterType<PollService>().As<IPollService>().SingleInstance();
+            builder.RegisterType<UserService>().As<IUserService>().SingleInstance();
+
+            builder.RegisterTelegramBot();
+            builder.RegisterJobs(new[] { Assembly.GetAssembly(typeof(DeleteOldMessagesJob)) });
+            builder.RegisterMessageHandlers(new[] { Assembly.GetAssembly(typeof(DeletePolicyMessageHandler)) });
+            builder.RegisterCommandHandlers(new[] { Assembly.GetAssembly(typeof(DeletePolicyCommandHandler)) });
+<<<<<<< HEAD
+
+            builder.Register(c => c.Resolve<TelegramBotClientContext>().Current).As<ITelegramBotClient>()
+                .SingleInstance();
+
+            RetryPolicyConfiguration.AsyncRetryCount = 5;
+            RetryPolicyConfiguration.AsyncRetryDelay = 200;
+=======
+>>>>>>> develop
+        }
+    }
+}

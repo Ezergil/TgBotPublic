@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Coravel" Version="3.6.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TelegramBot.Infrastructure\TelegramBot.Infrastructure.csproj" />
+    <ProjectReference Include="..\TgBot.Base\TgBot.Base.csproj" />
+    <ProjectReference Include="..\TgBot.Services\TgBot.Services.csproj" />
+  </ItemGroup>
+
+</Project>

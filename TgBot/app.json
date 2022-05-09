@@ -1,0 +1,9 @@
+{
+  "name": "TgBot",
+  "description": "",
+  "buildpacks": [
+    {
+      "url": "https://github.com/jincod/dotnetcore-buildpack.git"
+    }
+  ]
+}
